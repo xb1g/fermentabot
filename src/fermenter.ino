@@ -10,7 +10,7 @@
 #define CO2_IN 5 // PWM pin for CO2 sensor
 #define MH_Z19_RX 16  // RX for MH-Z19C 
 #define MH_Z19_TX 17  // TX for MH-Z19C
-#define MQPin 33  // TX for MH-Z19C
+#define MQPin 36  // TX for MH-Z19C
 
 // MQ135 sensor setup
 #define placa "ESP32"
