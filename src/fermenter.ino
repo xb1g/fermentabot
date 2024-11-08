@@ -31,7 +31,7 @@ const char* password = "13591359";
 // MQTT settings
 const char* mqttServer = "demo.thingsboard.io";
 const int mqttPort = 1883;
-const char* mqttUser = "W7FByEMblN9TsgtYmBB4"; // MQTT username (ThingsBoard access token)
+const char* mqttUser = "4rqxhpu18nhiellh2nxm"; // MQTT username (ThingsBoard access token)
 const char* mqttTopic = "v1/devices/me/telemetry";
 
 // MQTT client setup
@@ -51,7 +51,7 @@ void alternateSSID() {
 }
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   dht.begin();
 
   // Alternate SSID
@@ -120,13 +120,17 @@ void setup() {
 void co2Task(void *pvParameters) {
   while (true) {
     int ppm_pwm = co2.readCO2PWM();     // Read CO2 concentration over PWM
-    int co2Temperature = co2.getLastTemperature(); // Temperature from CO2 sensor
 
     if (ppm_pwm < 0) ppm_pwm = 0;      // Handle invalid PWM reading
-    if (co2Temperature < 0) co2Temperature = 0; // Handle invalid temperature reading
+    // if (co2Temperature < 0) co2Temperature = 0; // Handle invalid temperature reading
 
     Serial.print("CO2 PWM: "); Serial.print(ppm_pwm); Serial.println(" ppm");
-    Serial.print("CO2 Sensor Temperature: "); Serial.print(co2Temperature); Serial.println(" *C");
+    Serial.print("CO2 Sensor Temperature: "); 
+    String co2Payload = "{\"co2_pwm\":" + String(ppm_pwm) + "}";
+    client.publish(mqttTopic, co2Payload.c_str());
+    Serial.print("MQTT Published: ");
+    Serial.println(co2Payload);
+    // Serial.print(co2Temperature); Serial.println(" *C");
 
     vTaskDelay(2000 / portTICK_PERIOD_MS);
   }
@@ -162,5 +166,5 @@ void loop() {
   Serial.print("DHT Humidity: "); Serial.print(humidity); Serial.println(" %");
   Serial.print("MQ135 CO2: "); Serial.print(CO2 + 400); Serial.println(" ppm");
 
-  delay(3000); // Delay to control the data sending frequency
+  delay(5000); // Delay to control the data sending frequency
 }
