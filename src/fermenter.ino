@@ -2,9 +2,6 @@
 #include <PubSubClient.h>
 #include <DHT.h>
 #include <MHZ.h>
-#include <HardwareSerial.h>
-
-HardwareSerial mySerial(1); // Use UART1 on ESP32
 
 // Define pins for sensors
 #define DHTPIN 21 // DHT Digital Input Pin
@@ -12,10 +9,11 @@ HardwareSerial mySerial(1); // Use UART1 on ESP32
 #define CO2_IN 5 // PWM pin for CO2 sensor
 #define MH_Z19_RX 16  // RX for MH-Z19C 
 #define MH_Z19_TX 17  // TX for MH-Z19C
+#define MQPin 33  // TX for MH-Z19C
 
 // Initialize DHT and CO2 sensor
 DHT dht(DHTPIN, DHTTYPE);
-MHZ co2(MH_Z19_RX, MH_Z19_TX, CO2_IN, MHZ19C);
+MHZ co2(MH_Z19_RX, MH_Z19_TX, CO2_IN, MHZ::MHZ19C);
 
 // WiFi credentials
 const char* ssid = "Big";
