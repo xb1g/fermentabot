@@ -31,7 +31,7 @@ const char* password = "13591359";
 // MQTT settings
 const char* mqttServer = "demo.thingsboard.io";
 const int mqttPort = 1883;
-const char* mqttUser = "4rqxhpu18nhiellh2nxm"; // MQTT username (ThingsBoard access token)
+const char* mqttUser = "W7FByEMblN9TsgtYmBB4"; // MQTT username (ThingsBoard access token)
 const char* mqttTopic = "v1/devices/me/telemetry";
 
 // MQTT client setup
